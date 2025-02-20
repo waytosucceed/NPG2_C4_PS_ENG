@@ -1,0 +1,229 @@
+let storiesData = [
+    {
+        "title": "The Brave Astronaut",
+        "story": "Up in the sky, so high and bright,<br>An astronaut soars beyond the night.<br>Wearing a suit, strong and white,<br>Floating like a bird in flight.<br><br>He walks on the Moon, so big and round,<br>Leaping high above the ground.<br>Looking at Earth, blue and small,<br>A tiny home, but loved by all.<br><br>Stars shine bright, like sparkling light,<br>Guiding him through the endless night.<br>Brave and bold, he flies so far,<br>Dreaming big among the stars!",
+        "questions": [
+{
+"question": "What is the astronaut wearing?",
+"options": ["A red cape", "A strong white suit", "A black jacket"],
+"correct": 1
+},
+{
+"question": "Where does the astronaut walk?",
+"options": ["On the Moon", "On the Sun", "On a cloud"],
+"correct": 0
+},
+{
+"question": "What does the astronaut see when he looks at Earth?",
+"options": ["A giant mountain", "A blue and small planet", "A glowing red star"],
+"correct": 1
+},
+{
+"question": "What do the stars do in the poem?",
+"options": ["Shine bright like sparkling light", "Fall from the sky", "Change colours every second"],
+"correct": 0
+},
+{
+"question": "What is the meaning of \"soars\" in the first stanza?",
+"options": ["Flies high in the sky", "Walks slowly", "Dives into water"],
+"correct": 0
+},
+{
+"question": "What is the main theme of the poem?",
+"options": ["The beauty of nature", "The bravery of astronauts exploring space", "The dangers of the deep ocean"],
+"correct": 1
+}
+]
+
+    },
+    {
+        "title": "Giraffes: The Gentle Giants of the Wild!",
+        "story": "<ul><li>Tallest Animal – Giraffes are the tallest animals in the world, and their long necks help them reach tasty leaves on tall trees!</li><br><li>Long Tongue – Their tongues are super long (about 18 inches!) and can grab leaves easily. Their tongues are also dark to protect them from the sun.</li><br><li>Noisy or Quiet? – Giraffes don’t make a lot of noise, but they can hum at night to talk to each other!</li><br><li>Fast Runners – Even though they look slow, giraffes can run up to 35 miles per hour!</li><br><li>Little Sleep – Giraffes only sleep for about 30 minutes a day, and sometimes they sleep while standing up!</li></ul>",
+        "questions": [
+{
+"question": "What makes giraffes the tallest animals in the world?",
+"options": ["Their long ears", "Their long legs and necks", "Their strong tails"],
+"correct": 1
+},
+{
+"question": "How long is a giraffe’s tongue?",
+"options": ["About 18 inches", "About 5 inches", "About 3 feet"],
+"correct": 0
+},
+{
+"question": "Why is a giraffe’s tongue dark in colour?",
+"options": ["To look pretty", "To scare other animals", "To protect it from the sun"],
+"correct": 2
+},
+{
+"question": "How do giraffes communicate at night?",
+"options": ["They roar loudly", "They hum to each other", "They clap their hooves"],
+"correct": 1
+},
+{
+"question": "What is the meaning of \"grab\" in the sentence, \"Their tongues are super long (about 18 inches!) and can grab leaves easily\"?",
+"options": ["To catch or hold", "To drop something", "To push away"],
+"correct": 0
+},
+{
+"question": "What is the author’s purpose in writing this passage?",
+"options": ["To entertain with a fun giraffe story", "To give interesting facts about giraffes", "To tell people to keep giraffes as pets"],
+"correct": 1
+}
+]
+
+    },
+    {
+        "title": "Super Cool Science Facts!",
+        "story": "<ul><li>Water Can Be Sticky! – Water molecules stick together, which is why small bugs can walk on water without sinking!</li><br><li>Bananas Glow! – If you shine a special light (UV light) on a banana, it glows blue as it ripens!</li><br><li>Your Body Makes Electricity! – Your brain and heart send tiny electric signals to help you think and move!</li><br><li>Sound Travels Faster in Water! – If you shout underwater, the sound moves five times faster than in air!</li><br><li>Space Smells Funny! – Astronauts say space smells like burnt toast or fireworks after they come back from a spacewalk!</li></ul>",
+        "questions": [
+{
+"question": "Why can small bugs walk on water?",
+"options": ["Water molecules stick together", "Bugs have tiny wings to help them float", "Water is as hard as ice"],
+"correct": 0
+},
+{
+"question": "What happens when you shine a UV light on a banana?",
+"options": ["It turns red", "It glows blue", "It disappears"],
+"correct": 1
+},
+{
+"question": "What do your brain and heart use to help you think and move?",
+"options": ["Tiny electric signals", "Small drops of water", "Wind power"],
+"correct": 0
+},
+{
+"question": "How do astronauts say space smells?",
+"options": ["Like flowers and fresh air", "Like burnt toast or fireworks", "Like sweet candy"],
+"correct": 1
+},
+{
+"question": "What is the author’s purpose in writing this passage?",
+"options": ["To entertain with a funny story", "To teach fun and amazing science facts", "To tell a story about space travel"],
+"correct": 1
+},
+{
+"question": "What is the meaning of \"ripens\" in the sentence, \"It glows blue as it ripens!\"?",
+"options": ["Gets bigger", "Changes colour", "Becomes fully grown and ready to eat"],
+"correct": 2
+}
+]
+
+    },
+    {
+        "title": "Happy New Year, My Dear Kids!",
+        "story": "My Dear Lily,<br>Happy New Year! I am so proud of you and all the wonderful things you did this year. You make me smile every day, and I love you so much!<br><br>This new year, I wish you lots of happiness, fun adventures, and big dreams. Keep being kind, brave, and curious! I can't wait to see all the amazing things you will do.<br><br>Always remember, I am here for you, and I love you more than the stars in the sky!<br>Happy New Year!<br><br>With love,<br>Daddy",
+        "questions": [
+{
+"question": "Who is the letter written to?",
+"options": ["Lily", "Daddy", "A teacher"],
+"correct": 0
+},
+{
+"question": "What is Daddy proud of?",
+"options": ["Lily’s wonderful actions this year", "Lily’s favourite toy", "Lily’s school bag"],
+"correct": 0
+},
+{
+"question": "What does the phrase \"more than the stars in the sky\" mean?",
+"options": ["A small amount", "An endless or very big amount", "The number of stars Lily can count"],
+"correct": 1
+},
+{
+"question": "What is the meaning of \"curious\" in the sentence, \"Keep being kind, brave, and curious!\"?",
+"options": ["Wanting to learn new things", "Feeling scared of everything", "Always being sleepy"],
+"correct": 0
+},
+{
+"question": "What is the author’s purpose in writing this letter?",
+"options": ["To tell a story about New Year’s fireworks", "To wish Lily a Happy New Year and encourage her", "To ask Lily to clean her room"],
+"correct": 1
+},
+{
+"question": "What does Daddy promise in the letter?",
+"options": ["That he is always there for Lily", "That Lily will get a puppy", "That Lily can stay up all night"],
+"correct": 0
+}
+]
+
+    },
+    {
+        "title": "Zara and the Friendly Alien",
+        "story": "One night, Zara looked through her telescope and saw a bright, flashing light in the sky. Suddenly, a small spaceship landed in her backyard! A little green alien with big, shiny eyes stepped out. \"Hello! I am Zogo from Planet Ziltron,\" he said with a smile. Zara was amazed!<br><br>Zogo showed her a floating ball that could turn into any shape. \"This is a magic space tool!\" he said, turning it into a glowing star and then into a tiny rocket. Zara and Zogo played all night, jumping in low gravity and zooming around in his spaceship. <br><br>Before leaving, Zogo gave Zara a tiny star that twinkled in her hand. \"Whenever you look at the stars, remember me!\" he said. With a wave, he flew back into space. Zara watched the spaceship disappear, knowing she had just made a friend from the stars!",
+        "questions": [
+{
+"question": "What did Zara see through her telescope?",
+"options": ["A bright, flashing light in the sky", "A falling tree in her backyard", "A giant bird flying at night"],
+"correct": 0
+},
+{
+"question": "Who was Zogo?",
+"options": ["A robot from the future", "A little green alien from Planet Ziltron", "A lost astronaut"],
+"correct": 1
+},
+{
+"question": "What was special about Zogo’s floating ball?",
+"options": ["It could turn into any shape", "It could make Zara fly", "It was made of gold"],
+"correct": 0
+},
+{
+"question": "What does the word \"twinkled\" mean in the sentence, \"Zogo gave Zara a tiny star that twinkled in her hand\"?",
+"options": ["Shined or sparkled", "Made a loud noise", "Flew into the air"],
+"correct": 0
+},
+{
+"question": "What is the main theme of the story?",
+"options": ["A girl learning how to use a telescope", "A friendship between a human and an alien", "A lost spaceship trying to find its way home"],
+"correct": 1
+},
+{
+"question": "How did Zara feel at the end of the story?",
+"options": ["Sad because she lost her telescope", "Scared of the spaceship", "Happy and excited about her new friend"],
+"correct": 2
+}
+]
+
+    },
+    {
+        "title": "Amazing Eye Facts: See the Magic!",
+        "story": "<ul><li>Your eyes blink a lot! – You blink about 15–20 times per minute, which helps keep your eyes clean and moist.</li><br><li>Eyes can see millions of colours! – Your eyes can see over 10 million different colours, making the world so colourful! </li><br><li>Your eye is super fast! – Your eye muscles are the fastest muscles in your body, helping you blink and move your eyes quickly.</li><br><li>No two eyes are the same! – Just like fingerprints, everyone’s eyes are unique, even if they are the same colour!</li></ul>",
+        "questions": [
+{
+"question": "How many times do you blink in a minute?",
+"options": ["15–20 times", "50–60 times", "5–10 times"],
+"correct": 0
+},
+{
+"question": "How many colours can the human eye see?",
+"options": ["More than 10 million", "Only 100 colours", "Around 1,000 colours"],
+"correct": 0
+},
+{
+"question": "What makes the eye muscles special?",
+"options": ["They are the slowest muscles in the body", "They are the fastest muscles in the body", "They are the weakest muscles in the body"],
+"correct": 1
+},
+{
+"question": "How are eyes similar to fingerprints?",
+"options": ["They are the same for everyone", "They are unique to each person", "They can change shape over time"],
+"correct": 1
+},
+{
+"question": "What is the meaning of \"moist\" in the sentence, \"Blinking helps keep your eyes clean and moist\"?",
+"options": ["Dry and rough", "Wet or slightly damp", "Sticky and thick"],
+"correct": 1
+},
+{
+"question": "What is the author’s purpose in writing this passage?",
+"options": ["To explain how glasses work", "To tell a funny story about blinking", "To teach interesting facts about eyes"],
+"correct": 2
+}
+]
+
+    }
+];
+
+
+
+i want her when, we click on submit button, then it generate pdf , in pdf, if the user marked answer is correct then, make that option text color green, if the user entered  answer is wrong , then make that option text color red and correct answer option text color blue
+

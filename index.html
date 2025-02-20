@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Stories Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .story-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .questions-section {
+            padding: 20px;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+
+        .question-card {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .radio-option {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .radio-option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .option-text-correct {
+            color: green;
+        }
+
+        .option-text-incorrect {
+            color: red;
+        }
+
+        .option-text-correct-answer {
+            color: blue;
+        }
+
+        .header {
+            box-shadow: 5px 5px 10px rgb(0, 0, 0);
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .story-title {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            margin: 20px 0;
+            width: 200px;
+        }
+
+        .story-container {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            padding: 20px;
+        }
+
+        #main-submit-btn {
+            position: sticky;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 300px;
+            padding: 15px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .submit-container {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body {
+                font-size: 1.2rem !important;
+            }
+            
+            .story-section,
+            .questions-section,
+            .question-card,
+            .radio-option,
+            .option-text,
+            p, h4, h5 {
+                font-size: 1.2rem !important;
+            }
+            
+            #main-submit-btn, 
+            #export-pdf-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="Logo.png" width="5%" style="float: left; margin-top: 17px; margin-left: 10px;" class="img-responsive"/>
+        <span>
+            <img src="header.png" width="30%" class="img-responsive" style="text-align: left"/>
+        </span>
+    </div>
+
+    <div class="container" id="main-content">
+        <!-- Stories and questions will be loaded here -->
+    </div>
+
+    <div class="submit-container button-container" style="display: flex;">
+        <button id="main-submit-btn" class="btn btn-primary">Submit All Answers</button>
+        <button id="export-pdf-btn" class="btn btn-success" style="display: none;">Download</button>
+    </div>
+
+    <script>
+        let storiesData = [
+    {
+        "title": "Monuments Around the World!",
+        "story": "The Eiffel Tower stands so tall,<br>In Paris, where people call.<br>Made of iron, shining bright,<br>It sparkles like stars at night!<br><br>The Great Wall of China goes far and wide,<br>Built with strength, side by side.<br>Long and strong, through hills it bends,<br>A wall that never seems to end!<br><br>The Taj Mahal, so white and grand,<br>Built with love, in India’s land.<br>A palace shining in the sun,<br>A wonder loved by everyone!",
+        "questions": [
+  {
+    "question": "Where is the Eiffel Tower located?",
+    "options": ["Paris", "London", "Rome"],
+    "correct": 0
+  },
+  {
+    "question": "What is the Great Wall of China made of?",
+    "options": ["Bricks and stones", "Wood", "Glass"],
+    "correct": 0
+  },
+  {
+    "question": "Why was the Taj Mahal built?",
+    "options": ["To celebrate a festival", "To show love", "To protect a kingdom"],
+    "correct": 1
+  },
+  {
+    "question": "What does the word 'sparkles' mean in the line, 'It sparkles like stars at night!'?",
+    "options": ["Falls apart", "Moves quickly", "Shines brightly"],
+    "correct": 2
+  },
+  {
+    "question": "What does 'bends' mean in the line, 'Through hills it bends'?",
+    "options": ["Stays straight", "Curves and turns", "Breaks into pieces"],
+    "correct": 1
+  },
+  {
+    "question": "How does the poet describe the Taj Mahal?",
+    "options": ["White and grand", "Small and colourful", "Old and broken"],
+    "correct": 0
+  }
+]
+
+
+    },
+    {
+        "title": "Land vs. Water Animals: Nature’s Amazing Creatures!",
+        "story": "<ul><li>Where They Live – Land animals live on land (like lions and elephants), while water animals live in oceans, rivers, or lakes (like fish and dolphins).</li><br><li>Breathing – Land animals breathe through lungs, while most water animals use gills to take in oxygen from water. But some, like whales, have lungs and come up for air!</li><br><li>Body Features – Land animals have legs or paws to walk and run, while water animals have fins, flippers, or tails to swim.</li><br><li>Skin Type – Land animals may have fur, scales, or skin, while water animals often have smooth, slippery skin or scales to help them move easily in water.</li></ul>",
+        "questions": [
+  {
+    "question": "Where do water animals live?",
+    "options": ["In forests and mountains", "In oceans, rivers, or lakes", "In the sky"],
+    "correct": 1
+  },
+  {
+    "question": "How do most water animals breathe?",
+    "options": ["Through their lungs", "By taking in oxygen through their skin", "By using gills"],
+    "correct": 2
+  },
+  {
+    "question": "Which of these animals needs to come up for air to breathe?",
+    "options": ["Whale", "Shark", "Goldfish"],
+    "correct": 0
+  },
+  {
+    "question": "What does the word 'oxygen' mean in the sentence, 'Water animals use gills to take in oxygen from water'?",
+    "options": ["A type of food", "A kind of water", "A gas we need to breathe"],
+    "correct": 2
+  },
+  {
+    "question": "What is the theme of the passage?",
+    "options": ["The differences between land animals and water animals", "How to take care of animals", "The fastest animals in the world"],
+    "correct": 0
+  },
+  {
+    "question": "How does having smooth skin or scales help water animals?",
+    "options": ["It helps them run fast", "It helps them move easily in water", "It helps them climb trees"],
+    "correct": 1
+  }
+]
+
+
+    },
+    {
+        "title": "Jupiter: The Giant of the Solar System!",
+        "story": "<ul><li>Biggest Planet – Jupiter is the biggest planet in our solar system. More than 1,300 Earths could fit inside it!</li><br><li>Stormy Planet – Jupiter has a huge storm called the Great Red Spot, which has been swirling for over 300 years!</li><br><li>Many Moons – Jupiter has 92 moons, and the four biggest ones are called Galilean moons! </li><br><li>Fast Spinner – Jupiter spins really fast, finishing one whole day in just 10 hours, while Earth takes 24 hours! </li></ul>",
+        "questions": [
+  {
+    "question": "How many Earths could fit inside Jupiter?",
+    "options": ["More than 1,300", "About 100", "Less than 500"],
+    "correct": 0
+  },
+  {
+    "question": "What is the name of Jupiter’s famous storm?",
+    "options": ["The Big Blue Wave", "The Great Red Spot", "The Spinning Swirl"],
+    "correct": 1
+  },
+  {
+    "question": "How many moons does Jupiter have?",
+    "options": ["92", "10", "50"],
+    "correct": 0
+  },
+  {
+    "question": "What does the word 'swirling' mean in the sentence, 'Jupiter has a huge storm called the Great Red Spot, which has been swirling for over 300 years!'?",
+    "options": ["Moving in circles", "Standing still", "Breaking apart"],
+    "correct": 0
+  },
+  {
+    "question": "What is the author’s purpose in writing this passage?",
+    "options": ["To teach how to build a rocket", "To tell a story about space travel", "To give interesting facts about Jupiter"],
+    "correct": 2
+  },
+  {
+    "question": "Why is Jupiter called a stormy planet?",
+    "options": ["Because it is made of ice", "Because it has the Great Red Spot storm", "Because it has no moons"],
+    "correct": 1
+  }
+]
+
+
+    },
+    {
+        "title": "Zoom Away! Bicycle for Sale!",
+        "story": "Do you want to ride fast and have fun? I am selling a red and blue bicycle in great condition!<ul><li>Strong and smooth – Perfect for kids!</li><li>Bell and basket included! </li><li>Easy to ride and super cool!</li></ul><br>Price: $50 only! <br>Call Tom at 123-456-7890 to buy this awesome bike! <br><br>Hurry, before it’s gone!",
+        "questions": [
+  {
+    "question": "What colours is the bicycle?",
+    "options": ["Red and blue", "Green and yellow", "Black and white"],
+    "correct": 0
+  },
+  {
+    "question": "What extra features does the bicycle have?",
+    "options": ["A horn and stickers", "A bell and a basket", "A flashlight and a lock"],
+    "correct": 1
+  },
+  {
+    "question": "Who should you call to buy the bike?",
+    "options": ["John", "Tom", "Sam"],
+    "correct": 1
+  },
+  {
+    "question": "What does the word 'condition' mean in the sentence, 'I am selling a red and blue bicycle in great condition!'?",
+    "options": ["The way something looks and works", "The weather outside", "A type of bike"],
+    "correct": 0
+  },
+  {
+    "question": "What is the author’s purpose in writing this passage?",
+    "options": ["To sell a bicycle", "To teach about riding bikes", "To describe how bikes are made"],
+    "correct": 0
+  },
+  {
+    "question": "Why does the ad say the bike is 'easy to ride and super cool'?",
+    "options": ["To make the bike sound fun and exciting", "To make the bike heavier", "To show the bike is only for adults"],
+    "correct": 0
+  }
+]
+
+
+    },
+    {
+        "title": "Milo and the Talking Moon",
+        "story": "One night, Milo looked out of his window and saw the moon smiling at him! Surprised, he whispered, \"Can you hear me?\" To his amazement, the moon spoke back! \"Of course, Milo! I watch over the world every night.\" <br><br>The moon told Milo stories about shining over deep oceans, snowy mountains, and animals that wake up when everyone else is asleep.<br>Milo loved listening to the moon’s stories, and every night, he would tell the moon about his day. <br><br>One evening, the moon said, \"Even when you can’t see me, I’m always here.\" Milo smiled, knowing he had a forever friend in the sky. From then on, he never felt alone at night, because the moon was always watching over him.",
+        "questions": [
+  {
+    "question": "Who did Milo talk to in the story?",
+    "options": ["The sun", "The moon", "A star"],
+    "correct": 1
+  },
+  {
+    "question": "What did the moon tell Milo about?",
+    "options": ["Adventures in space", "Stories about oceans, mountains, and animals", "How to build a rocket"],
+    "correct": 1
+  },
+  {
+    "question": "How did Milo feel at the end of the story?",
+    "options": ["Lonely and sad", "Happy and comforted", "Angry at the moon"],
+    "correct": 1
+  },
+  {
+    "question": "What does the word 'amazement' mean in the sentence, 'To his amazement, the moon spoke back!'?",
+    "options": ["Sleepiness", "Anger and frustration", "Surprise and wonder"],
+    "correct": 2
+  },
+  {
+    "question": "What does 'watch over' mean in the sentence, 'I watch over the world every night'?",
+    "options": ["To protect and look after", "To play games", "To travel around"],
+    "correct": 0
+  },
+  {
+    "question": "What is the theme of the story?",
+    "options": ["How to sleep early", "Racing to the moon", "Friendship and comfort"],
+    "correct": 2
+  }
+]
+
+
+    },
+    {
+        "title": "The Dancing Water Lily",
+        "story": "In the pond so cool and wide,<br>A water lily loves to glide.<br>Floating softly, white and bright,<br>Shining in the morning light.<br><br>Its petals open, big and round,<br>A golden centre can be found.<br>Fish swim by and say hello,<br>As gentle ripples start to flow.<br><br>At night it closes, taking rest,<br>Dreaming of the sun so best.<br>Water lily, pure and free,<br>A floating flower for all to see!",
+        "questions": [
+  {
+    "question": "Where does the water lily float?",
+    "options": ["In a garden", "In a pond", "In the ocean"],
+    "correct": 1
+  },
+  {
+    "question": "What happens to the water lily at night?",
+    "options": ["It shines brighter", "It closes and rests", "It sinks underwater"],
+    "correct": 1
+  },
+  {
+    "question": "What colour is the water lily?",
+    "options": ["Red", "Yellow", "White"],
+    "correct": 2
+  },
+  {
+    "question": "What does 'glide' mean in the line, 'A water lily loves to glide'?",
+    "options": ["To float smoothly", "To jump high", "To grow fast"],
+    "correct": 0
+  },
+  {
+    "question": "What is the theme of the poem?",
+    "options": ["The beauty of nature", "A storm in the pond", "A lost fish"],
+    "correct": 0
+  },
+  {
+    "question": "Why is the water lily called 'pure and free'?",
+    "options": ["Because it is trapped in the pond", "Because it is a floating, natural flower", "Because it is the only flower in the pond"],
+    "correct": 1
+  }
+]
+
+
+    }
+];
+
+        function loadAllStories() {
+            const mainContainer = document.getElementById('main-content');
+            
+            storiesData.forEach((story, storyIndex) => {
+                const storyContainer = document.createElement('div');
+                storyContainer.className = 'story-container';
+                
+                // Create story section
+                const storyContent = `
+                    <h3 class="story-title">Story ${storyIndex + 1}: ${story.title}</h3>
+                    <div class="story-section">
+                        <p>${story.story}</p>
+                    </div>
+                    <div class="questions-section" id="questions-${storyIndex}">
+                        <h4>Questions:</h4>
+                        ${story.questions.map((question, qIndex) => `
+                            <div class="question-card">
+                                <h5>Question ${qIndex + 1}</h5>
+                                <p>${question.question}</p>
+                                ${question.options.map((option, oIndex) => `
+                                    <label class="radio-option">
+                                        <input type="radio" name="story${storyIndex}question${qIndex}" value="${oIndex}">
+                                        <span class="option-text">${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                storyContainer.innerHTML = storyContent;
+                mainContainer.appendChild(storyContainer);
+            });
+        }
+
+        function checkAllAnswers() {
+            let allAnswersMarked = true;
+            
+            storiesData.forEach((story, storyIndex) => {
+                const questionSection = document.getElementById(`questions-${storyIndex}`);
+                const questions = questionSection.querySelectorAll('.question-card');
+                
+                questions.forEach((questionDiv, qIndex) => {
+                    const selectedOption = questionDiv.querySelector(`input[name="story${storyIndex}question${qIndex}"]:checked`);
+                    const correctAnswerIndex = storiesData[storyIndex].questions[qIndex].correct;
+                    
+                    if (selectedOption) {
+                        const options = questionDiv.querySelectorAll('.radio-option');
+                        options.forEach((option, oIndex) => {
+                            const optionText = option.querySelector('.option-text');
+                            option.classList.remove('correct', 'incorrect');
+                            optionText.classList.remove('option-text-correct', 'option-text-incorrect', 'option-text-correct-answer');
+                            
+                            if (oIndex === parseInt(selectedOption.value)) {
+                                if (oIndex === correctAnswerIndex) {
+                                    option.classList.add('correct');
+                                    optionText.classList.add('option-text-correct');
+                                } else {
+                                    option.classList.add('incorrect');
+                                    optionText.classList.add('option-text-incorrect');
+                                }
+                            } else if (oIndex === correctAnswerIndex && oIndex !== parseInt(selectedOption.value)) {
+                                optionText.classList.add('option-text-correct-answer');
+                            }
+                        });
+                    } else {
+                        allAnswersMarked = false;
+                    }
+                });
+            });
+            
+            // Show PDF export button only if all answers are marked
+            if (allAnswersMarked) {
+                document.getElementById('export-pdf-btn').style.display = 'inline-block';
+                document.getElementById('main-submit-btn').style.display='none';
+            } else {
+                alert("Please answer all questions before generating the PDF.");
+            }
+        }
+
+
+
+        function createStoryContainer(story, storyIndex) {
+    // Create a container with more compact styling
+    const container = document.createElement('div');
+    container.style.padding = '10px';
+    container.style.maxWidth = '210mm'; // A4 width
+    container.style.fontSize = '10pt'; // Base font size
+    
+    // Add story content
+    container.innerHTML = `
+        <div style="margin-bottom: 10px;">
+            <h3 style="color: #0d6efd; font-size: 12pt; margin-bottom: 10px;">Story ${storyIndex + 1}: ${story.title}</h3>
+            <div style="background-color: #f8f9fa; padding: 10px; margin-bottom: 10px; font-size: 10pt;">
+                ${story.story}
+            </div>
+        </div>
+        <div style="margin-top: 10px;">
+            <h4 style="font-size: 11pt; margin-bottom: 10px;">Questions:</h4>
+            ${story.questions.map((question, qIndex) => {
+                const selectedOption = document.querySelector(`input[name="story${storyIndex}question${qIndex}"]:checked`);
+                const selectedValue = selectedOption ? parseInt(selectedOption.value) : -1;
+                
+                return `
+                    <div style="margin-bottom: 8px; padding: 5px; border: 1px solid #dee2e6;">
+                        <div style="font-size: 10pt; margin-bottom: 5px;">Question ${qIndex + 1}: ${question.question}</div>
+                        ${question.options.map((option, oIndex) => {
+                            let style = 'font-size: 7pt; margin: 2px 0; padding: 2px;';
+                            let prefix = '○ ';
+                            
+                            if (selectedValue === oIndex && oIndex === question.correct) {
+                                style += 'color: green;';
+                                prefix = '✓ ';
+                            } else if (selectedValue === oIndex) {
+                                style += 'color: red;';
+                                prefix = '× ';
+                            } else if (oIndex === question.correct) {
+                                style += 'color: blue;';
+                            }
+                            
+                            return `<div style="${style}">${prefix}${option}</div>`;
+                        }).join('')}
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+    
+    return container;
+}
+
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const today = new Date();
+    const dateString = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+
+    // Hide buttons during processing
+    document.getElementById('export-pdf-btn').style.display = 'none';
+    document.getElementById('main-submit-btn').style.display = 'none';
+
+    let currentStory = 0;
+    
+    function processNextStory() {
+        if (currentStory >= storiesData.length) {
+            doc.save(`NP_4_PS.pdf`);
+            document.getElementById('export-pdf-btn').style.display = 'inline-block';
+            return;
+        }
+
+        const storyContainer = createStoryContainer(storiesData[currentStory], currentStory);
+        document.body.appendChild(storyContainer);
+
+        html2canvas(storyContainer, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            width: 793, // A4 width in pixels (96 dpi)
+            height: 1122 // A4 height in pixels (96 dpi)
+        }).then(canvas => {
+            // Remove temporary container
+            document.body.removeChild(storyContainer);
+
+            // Add new page if not first page
+            if (currentStory > 0) {
+                doc.addPage();
+            }
+
+            // Add the image to the PDF, fitting it to A4 page
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            doc.addImage(imgData, 'JPEG', 0, 0, 210, 297); // A4 dimensions in mm
+
+            currentStory++;
+            processNextStory();
+        });
+    }
+
+    processNextStory();
+}
+        window.onload = function() {
+            loadAllStories();
+            document.getElementById('main-submit-btn').addEventListener('click', checkAllAnswers);
+            document.getElementById('export-pdf-btn').addEventListener('click', exportToPDF);
+        };
+    </script>
+</body>
+</html>
